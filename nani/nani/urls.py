@@ -23,6 +23,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('order', views.order, name="order"),
-    path('story', views.story, name="story")
+    path('story', views.story, name="story"),
+    path('pizza',views.pizza, name="pizza"),
+    path('promocao', views.Promocao, name="promocao"),
+    path('message', views.Message, name="message"),
+    path('pergunta', views.Perguntas, name="perguntas"),
+    path('reclamacao', views.Reclamacao, name="reclamacao"),
+    path('sugestao', views.Sugestao, name="sugestao")
+    
+    
     
 ]
