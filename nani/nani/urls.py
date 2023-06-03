@@ -31,6 +31,7 @@ urlpatterns = [
     path('reclamacao', views.Reclamacao, name="reclamacao"),
     path('sugestao', views.Sugestao, name="sugestao"),
     path('pizzas', views.pizzas, name="pizzas"),
+    path('order/<int:pk>', views.edit_order, name="edit_order" )
     
     
     

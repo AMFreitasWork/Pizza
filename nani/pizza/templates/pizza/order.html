@@ -3,37 +3,43 @@
     
 {% block content %}
 
-<h1> Encomende a sua Pizza <h1>
-<p></p>
-<p></p>
-<p></p>
+{% load widget_tweaks %}
 
-<h2> {{ note }} </h2>
+<div class ="container">
+    <h1> Encomende a sua Pizza <h1>
+        <p></p>
+        <p></p>
+        <p></p>
 
-<section>
-    <p></p>
-    <p></p>
-    <p></p>
-</section>
+    <h2> {{ note }} </h2>
+        {% if  created_pizza_pk%}
 
-    <section>
-    <form  action="{% url 'order' %}" method="post">{% csrf_token %}
-     {{pizzaform}}
-    <input class="btn btn-success btn-sm" type="submit" value="Encomendar Pizza">
+            <a href="{% url 'edit_order' created_pizza_pk %}">
+            Edite a sua encomenda </a>
+        {% endif %}
+
+
+    <form  action="{% url 'order' %}" method="post"  >{% csrf_token %}
+        
+        {% for field in pizzaform %}
+
+            <div class="form-group">
+            {{field.erros}}
+            {{field.label_tag}}
+            {% render_field field class="form-control" %}
+            </div>
+        {% endfor %}
+            <input class="btn btn-success btn-sm" type="submit" value="Encomendar Pizza">
 
     </form>
 
-    </section>
+  
 
-    <br>
-
-    </br>
-
-    Deseja mais que uma Pizza?
+    <h5> Deseja mais que uma Pizza? </h5>
 
     <form action="{% url 'pizzas'%}" method="get">
         {{multiple_form}}
         <input type="submit" value="Get Pizzas">
-
     </form>
+</div>
 {% endblock %}

@@ -1,17 +1,32 @@
-<h1>
-    Oder Pizzas 
-</h1>
+{% extends 'base2.html'%}
 
-<h2>
-    {{note}}
-</h2>
-<form action={% url 'pizzas'%} method ="post"> {% csrf_token %}
-    {{formset.management_form}}
+{% block content%}
 
-    {%for form in formset%}
-        {{form}}
+{% load widget_tweaks%}
 
-    {%end for %}
+<div class ="container">
+    <h1>
+        Oder Pizzas 
+    </h1>
+
+    <h2>
+        {{note}}
+    </h2>
+        <form action={% url 'pizzas'%} method ="post"> {% csrf_token %}
+        
+        {{formset.management_form}}
+
+        {%for form in formset%}
+            {% for field in form%}
+                <div class="form-group">
+                    {{field.erros}}
+                    {{field.label_tag}}
+                    {% render_field field class="form-control"%}
+                </div>
+            {% endfor%}
+        {% endfor %}
 
     <input type="submit" value="Encomende a sua Pizza">
-</form>
+    </form>
+</div>
+{% endblock%}

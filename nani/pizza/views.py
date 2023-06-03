@@ -2,6 +2,7 @@ from urllib import request
 from django.shortcuts import render
 from .forms import PizzaForm, MultiplePizzaForm
 from django.forms import formset_factory
+from .models import Pizza  
 
 # Create your views here.
 
@@ -10,21 +11,39 @@ def home(request):
 
 def order(request):
     multiple_form = MultiplePizzaForm()
-    
-    
-    if request.method == "POST":
+    if request.method == 'POST':
         filled_form = PizzaForm(request.POST)
         if filled_form.is_valid():
+            created_pizza = filled_form.save()
+            created_pizza_pk = created_pizza.id
             note = 'Obrigado pela Encomenda! A sua Pizza %s de %s , %s , %s e %s vai a caminho!' %(filled_form.cleaned_data['size'],
-            filled_form.cleaned_data['topping1'],filled_form.cleaned_data['topping2'],filled_form.cleaned_data['topping3'],
-            filled_form.cleaned_data['topping4'])
-            new_form = PizzaForm()
-        return render (request, 'pizza/order.html', {'pizzaform': new_form, 'note': note}, {'multiple_form':multiple_form})
+            filled_form.cleaned_data['topping1'],
+            filled_form.cleaned_data['topping2'],
+            filled_form.cleaned_data['topping3'],
+            filled_form.cleaned_data['topping4'],)
+            filled_form = PizzaForm()
+        else:
+            created_pizza_pk = None
+            note = 'A sua encomenda falhou, tente novamente'
+            
+            
+        return render (request, 'pizza/order.html', {'created_pizza_pk':created_pizza_pk,'pizzaform': filled_form, 'note': note,'multiple_form':multiple_form})
     else:
         form = PizzaForm()
-        return render (request, 'pizza/order.html', {'pizzaform': form},{'multiple_form':multiple_form})
-
-def pizzas(self):
+        return render (request, 'pizza/order.html', {'pizzaform': form, 'multiple_form':multiple_form})
+def edit_order(request, pk):
+    pizza = Pizza.objects.get(pk=pk)
+    form = PizzaForm(instance=pizza)
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST, instance=pizza)
+        if filled_form.is_valid():
+            filled_form.save()
+            form = filled_form
+            note = "A sua encomenda foi Atualizada!"
+            return render(request, 'pizza/edit_order.html', {'pizzaform':form, 'pizza':pizza, 'note':note})
+    return render(request, 'pizza/edit_order.html', {'pizzaform':form, 'pizza':pizza})
+    
+def pizzas(request):
     number_of_pizzas=2
     filled_multiple_pizza_form = MultiplePizzaForm(request.GET)
     if filled_multiple_pizza_form.is_valid():
