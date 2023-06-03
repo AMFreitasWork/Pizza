@@ -25,12 +25,16 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'pizza' %}>Menus</a></li>
-                        <li class="nav-item "><a class=" nav-link active " href={% url 'promocao' %}>Promoções</a></li>
-                        <li class="nav-item"><a class="nav-link active" href={% url 'order' %}>Encomendar</a></li>
                         <li class="nav-item"><a class="nav-link " href={% url 'story' %}>About</a></li>
                     </ul>
-
+                    <div class="dropdown">
+                    <button class=" btn btn-dark  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Contatos</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href={% url 'message' %}>Fale Connosco</a></li>
+                      <li><a class="dropdown-item" href={% url 'perguntas' %}>Perguntas Frequentes </a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" href={% url 'reclamacao' %}>Reclamações</a></li>
+                      <li><a class="dropdown-item" href={% url 'sugestao' %}>Sugestões</a></li>
 
                     </ul>
                   </div>
@@ -38,7 +42,14 @@
 
             </div>
         </nav>
+            {% block content %}  
         
+            {% endblock  %}
+        
+        {% comment %} <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        </footer> {% endcomment %}
         
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -46,16 +57,7 @@
         <script src="static/js/scripts.js"></script>
     </body>
 </html>
-        {% block content %}  
         
-        {% endblock  %}
-        
-        {% comment %} <div class="bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');height: 100vh">
-        </div>  
-     {% endcomment %}
-
-        
-
    </div>
 
 
@@ -66,5 +68,4 @@
     
   </body>
 </html>
-
 

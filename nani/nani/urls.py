@@ -29,7 +29,8 @@ urlpatterns = [
     path('message', views.Message, name="message"),
     path('pergunta', views.Perguntas, name="perguntas"),
     path('reclamacao', views.Reclamacao, name="reclamacao"),
-    path('sugestao', views.Sugestao, name="sugestao")
+    path('sugestao', views.Sugestao, name="sugestao"),
+    path('pizzas', views.pizzas, name="pizzas"),
     
     
     

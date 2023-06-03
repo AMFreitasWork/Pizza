@@ -1,0 +1,17 @@
+<h1>
+    Oder Pizzas 
+</h1>
+
+<h2>
+    {{note}}
+</h2>
+<form action={% url 'pizzas'%} method ="post"> {% csrf_token %}
+    {{formset.management_form}}
+
+    {%for form in formset%}
+        {{form}}
+
+    {%end for %}
+
+    <input type="submit" value="Encomende a sua Pizza">
+</form>

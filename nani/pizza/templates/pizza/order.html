@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base2.html'%}
 
     
 {% block content %}
@@ -8,49 +8,32 @@
 <p></p>
 <p></p>
 
+<h2> {{ note }} </h2>
+
 <section>
     <p></p>
     <p></p>
     <p></p>
 </section>
+
     <section>
-    <form>
-        
-    <h6>
-    
-        <section>
-            <label for="topping1"> Topping 1: </label>
-                <input id="topping1" typer="text" name="topping1">
-        </section>
-        <section>
-            <label for="topping2"> Topping 2: </label>
-                <input id="topping2" typer="text" name="topping2">
-        </section>
-        <section>
-            <label for="topping3"> Topping 3: </label>
-                <input id="topping3" typer="text" name="topping3">
-        </section>
-        <section>
-            <label for="topping4"> Topping 4: </label>
-                <input id="topping5" typer="text" name="topping4">
-        </section>
-        <section>
-            <label for="size"> Size: </label>
-                <select id="size" name="size" >
-                <option value="Pequena">Pequena</option>
-                <option value="Media">Media</option>
-                <option value="Grande">Grande</option>
-                <option value="Familiar">Familiar</option>
-            </select>
-        </section>
-    
-
-    </h6>
-
+    <form  action="{% url 'order' %}" method="post">{% csrf_token %}
+     {{pizzaform}}
+    <input class="btn btn-success btn-sm" type="submit" value="Encomendar Pizza">
 
     </form>
 
-    </section>  
+    </section>
 
+    <br>
 
+    </br>
+
+    Deseja mais que uma Pizza?
+
+    <form action="{% url 'pizzas'%}" method="get">
+        {{multiple_form}}
+        <input type="submit" value="Get Pizzas">
+
+    </form>
 {% endblock %}
